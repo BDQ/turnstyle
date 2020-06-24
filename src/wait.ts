@@ -38,7 +38,7 @@ export class Waiter implements Wait {
       this.input.branch,
       this.workflowId
     );
-    console.dir(runs);
+    this.info(JSON.stringify(runs, null, 2));
     const previousRuns = runs
       .filter((run) => run.id < this.input.runId)
       .sort((a, b) => b.id - a.id);
