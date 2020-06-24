@@ -32,6 +32,7 @@ export class Waiter implements Wait {
       return secondsSoFar || 0;
     }
 
+    this.info(JSON.stringify(this.input, null, 2));
     const runs = await this.githubClient.runs(
       this.input.owner,
       this.input.repo,
@@ -40,7 +41,7 @@ export class Waiter implements Wait {
     );
     this.info(JSON.stringify(runs, null, 2));
     const previousRuns = runs
-      .filter((run) => run.id < this.input.runId)
+      .filter(run => run.id < this.input.runId)
       .sort((a, b) => b.id - a.id);
     if (!previousRuns || !previousRuns.length) {
       return;
@@ -48,7 +49,7 @@ export class Waiter implements Wait {
 
     const previousRun = previousRuns[0];
     this.info(`✋Awaiting run ${previousRun.html_url}...`);
-    await new Promise((resolve) =>
+    await new Promise(resolve =>
       setTimeout(resolve, this.input.pollIntervalSeconds * 1000)
     );
     return this.wait((secondsSoFar || 0) + this.input.pollIntervalSeconds);

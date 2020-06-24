@@ -29,6 +29,6 @@ export const parseInput = (env: Record<string, string | undefined>): Input => {
     workflowName,
     runId,
     pollIntervalSeconds,
-    continueAfterSeconds,
+    continueAfterSeconds
   };
 };
